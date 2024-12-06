@@ -1,0 +1,15 @@
+services:
+
+  postgres:
+    image: postgres
+    container_name: postgres-store
+    environment: 
+      POSTGRES_PASSWORD: admin
+    ports: 
+      - 5432:5432
+
+  redis:
+    image: redis
+    container_name: redis-store
+    ports:
+      - 6379:6379
