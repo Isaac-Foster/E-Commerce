@@ -2,7 +2,9 @@ from fastapi import FastAPI
 from fastapi.staticfiles import StaticFiles
 from fastapi.middleware.cors import CORSMiddleware
 
+
 from models import init_post
+from routers import configure_routes
 from views import view
 
 app = FastAPI()
@@ -19,4 +21,5 @@ app.add_middleware(
 
 
 init_post()
+configure_routes(app)
 #app.include_router(view.router)

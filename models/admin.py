@@ -1,18 +1,15 @@
 from datetime import datetime
 
-from sqlalchemy import Column, String, Integer, func
+from sqlalchemy import Column, String, Integer, ForeignKey
 from sqlalchemy.dialects.postgresql import UUID
-from sqlalchemy.ext.declarative import declarative_base
+
 
 from database.sql import Base, engine
 
-class Admins(Base):
-    __tablename__ = "Admins"
+class AdminModel(Base):
+    __tablename__ = "admins"
 
-    id = Column(UUID(as_uuid=True), primary_key=True, default=func.uuid_generate_v4())
-    name = Column(String(255), nullable=False)
-    document = Column(String(11))
-    username = Column(String(50))
-    balance = Column(Integer)
-    refer = Column(String(36))
+    id = Column(Integer, primary_key=True, autoincrement=True)
+    user_id = Column(UUID(as_uuid=True), ForeignKey("users.id"), nullable=False) 
+    password = Column(Text)
     
