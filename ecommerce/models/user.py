@@ -1,10 +1,8 @@
-from datetime import datetime
 
-from sqlalchemy import Column, String, Integer, func, Text
+from sqlalchemy import Column, Integer, String, Text, func
 from sqlalchemy.dialects.postgresql import UUID
-from sqlalchemy.ext.declarative import declarative_base
 
-from database.sql import Base, engine
+from ecommerce.database.sql import Base
 
 
 class UserModel(Base):
@@ -20,5 +18,5 @@ class UserModel(Base):
     balance = Column(Integer)
     avatar = Column(Text)
     refer = Column(String(36))
-    
-    
+
+
