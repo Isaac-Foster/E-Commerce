@@ -1,10 +1,16 @@
 # Python-generated files
-__pycache__/
+*/__pycache__
 *.py[oc]
 build/
 dist/
 wheels/
 *.egg-info
+.*
 
 # Virtual environments
 .venv
+
+# keys and .pem
+config/media/oracle/*
+config/media/amazon/*
+ecommerce/middleware/refresh_session.py

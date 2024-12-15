@@ -1,10 +1,15 @@
 import importlib
-from fastapi import FastAPI, APIRouter
 from pathlib import Path
+
+from fastapi import APIRouter, FastAPI
+
+from ecommerce.config import root_path
 
 
 def configure_routes(app: FastAPI):
-    routers_path = Path(__file__).parent.parent / "routers"
+    path = Path(root_path)
+    routers_path = root_path / "routers"
+
     notfound_routers = []
 
     async def load_routers(path: Path):
@@ -15,7 +20,7 @@ def configure_routes(app: FastAPI):
             return paths
 
         for item in path.iterdir():
-            if item.is_file() and item.suffix == ".py": 
+            if item.is_file() and item.suffix == ".py":
                 paths.append(item)
                 continue
 
@@ -27,15 +32,15 @@ def configure_routes(app: FastAPI):
 
     async def load_route(path: Path):
         module_name = path.relative_to(routers_path).with_suffix("").as_posix().replace("/", ".")
-        
-        try:            
-            router_module = importlib.import_module(f"routers.{module_name}")
-            router_name = "router"  
+
+        try:
+            router_module = importlib.import_module(f"ecommerce.routers.{module_name}")
+            router_name = "router"
 
             if hasattr(router_module, router_name):
                 router = getattr(router_module, router_name)
                 if isinstance(router, APIRouter):
-                    app.include_router(router, prefix="/api")  
+                    app.include_router(router, prefix="/api")
                 else:
                     notfound_routers.append(f" -> {module_name}: 'router' não é APIRouter")
             else:
@@ -45,7 +50,7 @@ def configure_routes(app: FastAPI):
         except Exception as e:
             print(f"Erro ao importar {module_name}: {e}")
 
-    
+
     async def initialize_routes():
         routes = await load_routers(routers_path)
         for route in routes:
@@ -55,5 +60,5 @@ def configure_routes(app: FastAPI):
             pass
             #print(f"🚨 Erros ao carregar os routers: {''.join(notfound_routers)}")
 
-    
+
     app.add_event_handler("startup", initialize_routes)

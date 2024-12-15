@@ -1,4 +1,3 @@
-from sqlalchemy import String, DateTime, Column, Boolean
 from sqlalchemy.engine import create_engine
 from sqlalchemy.orm import declarative_base, sessionmaker
 

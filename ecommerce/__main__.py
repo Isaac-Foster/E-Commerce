@@ -1,15 +1,16 @@
+
 from fastapi import FastAPI
-from fastapi.staticfiles import StaticFiles
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.staticfiles import StaticFiles
 
-
-from models import init_post
-from routers import configure_routes
-from views import view
+from ecommerce.config import root_path
+from ecommerce.models import init_post
+from ecommerce.routers import configure_routes
 
 app = FastAPI()
 
-app.mount("/static", StaticFiles(directory="static"), name="static")
+
+app.mount("/static", StaticFiles(directory=root_path / "static"), name="static")
 
 app.add_middleware(
     CORSMiddleware,
