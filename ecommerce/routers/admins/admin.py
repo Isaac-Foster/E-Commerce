@@ -2,7 +2,9 @@ import os
 
 from fastapi import APIRouter, File, UploadFile
 
-router = APIRouter(prefix='/admin')
+from ecommerce.media import storage_manager
+
+router = APIRouter(prefix='/admin', tags=["admin"])
 
 
 @router.get("/teste")
@@ -12,21 +14,11 @@ async def teste_get():
 
 @router.post("/upload_midia")
 async def upload_midia(file: UploadFile = File(...)):
-    # Caminho onde você vai salvar os arquivos
-    upload_dir = "dowloads/"
-
-    # Garantir que o diretório exista
-    os.makedirs(upload_dir, exist_ok=True)
-
-    # Obter o nome do arquivo
     file_name = file.filename
-    file_path = os.path.join(upload_dir, file_name)
-
+    file_path = os.path.join(path, file_name)
+    chunk_size = 1024 * 1024 
     try:
-        with open(file_path, "wb") as f:
-            f.write(await file.read())
-
-        return {"message": "Arquivo enviado com sucesso", "file_name": file_name}
-
+        result = await storage_manager.upload(file)
+        return {"message": "Arquivo enviado com sucesso", "file_id": result.id}
     except Exception as e:
         return {"message": f"Erro ao enviar arquivo: {str(e)}"}, 500
