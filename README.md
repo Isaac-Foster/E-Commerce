@@ -1,6 +1,4 @@
-Entendido! Com a nova estrutura que você forneceu, vou ajustar o **README.md** para refletir corretamente a organização atual do seu projeto. Aqui está o **README.md** atualizado, com base na sua estrutura de pastas atual.
 
----
 
 # E-commerce Boilerplate
 
