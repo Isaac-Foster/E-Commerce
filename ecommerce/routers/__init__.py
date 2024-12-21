@@ -6,6 +6,15 @@ from fastapi import APIRouter, FastAPI
 from ecommerce.config import root_path
 
 
+""" def configure_routes(app: FastAPI):
+    from ecommerce.routers.users import user
+    from ecommerce.routers.admins import admin
+    #from ecommerce.routers.public import public
+    app.include_router(user.router) 
+    app.include_router(admin.router) 
+    #app.include_router(public.router)  """
+
+
 def configure_routes(app: FastAPI):
     path = Path(root_path)
     routers_path = root_path / "routers"
@@ -53,6 +62,7 @@ def configure_routes(app: FastAPI):
 
     async def initialize_routes():
         routes = await load_routers(routers_path)
+
         for route in routes:
             await load_route(route)
 

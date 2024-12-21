@@ -5,13 +5,18 @@ description = "Add your description here"
 readme = "README.md"
 requires-python = ">=3.12"
 dependencies = [
+    "aiofiles>=24.1.0",
     "bcrypt>=4.2.1",
+    "boto3>=1.35.83",
+    "email-validator>=2.2.0",
     "fastapi>=0.115.5",
     "jinja2>=3.1.4",
+    "oci>=2.141.0",
     "psycopg2-binary>=2.9.10",
     "python-multipart>=0.0.19",
     "redis>=5.2.0",
     "sqlalchemy>=2.0.36",
+    "ulid>=1.1",
     "uvicorn[standart]>=0.32.1",
 ]
 

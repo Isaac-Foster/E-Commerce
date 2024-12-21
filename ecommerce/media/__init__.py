@@ -109,4 +109,4 @@ class StorageManager:
             return False
 
 
-storage_manager = StorageManager("file_name_config", "bucket_name")
+storage_manager = StorageManager("base", "photos")

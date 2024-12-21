@@ -3,7 +3,7 @@ from fastapi import APIRouter, Request, Response
 from ecommerce.schema.users.user import UserSignup, UserSignin
 
 from fastapi import APIRouter
-router = APIRouter(prefix='/users', tags=["user"])
+router = APIRouter(prefix='/users', tags=["public"])
 
 
 @router.post("/signup")

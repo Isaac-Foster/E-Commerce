@@ -17,8 +17,9 @@ async def upload_midia(file: UploadFile = File(...)):
     file_name = file.filename
     file_path = os.path.join(path, file_name)
     chunk_size = 1024 * 1024 
+
     try:
-        result = await storage_manager.upload(file)
-        return {"message": "Arquivo enviado com sucesso", "file_id": result.id}
+        result = await storage_manager.upload(file, chunk_size)
+        return {"message": "file upated sucessfull", "file_id": result.id}
     except Exception as e:
-        return {"message": f"Erro ao enviar arquivo: {str(e)}"}, 500
+        return {"message": f"Erro update your file"}, 500

@@ -1,5 +1,3 @@
-
-
 # E-commerce Boilerplate
 
 Este é um boilerplate para um sistema de **E-commerce** escalável e modular, desenvolvido com **FastAPI**. O projeto utiliza uma arquitetura limpa e modular (Clean Architecture/Hexagonal) para facilitar a manutenção e a evolução do código. Ele é projetado para ser facilmente extensível, com suporte a múltiplos provedores de **armazenamento de mídia** (como Oracle OCI e Amazon S3), **gerenciamento de sessões com Redis**, e integrações com diversos **sistemas de pagamento**.

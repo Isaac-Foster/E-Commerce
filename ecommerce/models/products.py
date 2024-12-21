@@ -14,10 +14,9 @@ class ProductModel(Base):
     image = Column(Text)
     price = Column(Integer)
 
+    # Relacionamento one-to-many, com delete-orphan no lado "one"
     variations = relationship("ProductVariationModel", back_populates="product", cascade="all, delete-orphan")
-
     images = relationship("ProductImageModel", back_populates="product", cascade="all, delete-orphan")
-
     videos = relationship("ProductVideoModel", back_populates="product", cascade="all, delete-orphan")
 
 
@@ -28,10 +27,10 @@ class ProductVariationModel(Base):
     product_id = Column(Integer, ForeignKey("products.id"), nullable=False)
     color = Column(String(100), nullable=True) 
     size = Column(String(100), nullable=True) 
-    price = Column(Integer, nullable=True) 
-    quantity = Column(Integer, nullable=False) 
+    price = Column(Integer, nullable=True)
+    quantity = Column(Integer, nullable=False)
 
-    product = relationship("ProductModel", back_populates="variations", cascade="all, delete-orphan")
+    product = relationship("ProductModel", back_populates="variations")
 
 
 class ProductImageModel(Base):
@@ -50,5 +49,5 @@ class ProductVideoModel(Base):
     id = Column(Integer, primary_key=True, autoincrement=True)
     product_id = Column(Integer, ForeignKey("products.id"), nullable=False)
     video_url = Column(Text, nullable=False)
-    
+
     product = relationship("ProductModel", back_populates="videos")
