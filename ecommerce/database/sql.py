@@ -21,4 +21,4 @@ engine = create_engine(
 
 
 Base = declarative_base()
-Session = sessionmaker(bind=engine)
+Session = sessionmaker(bind=engine, autoflush=True)
