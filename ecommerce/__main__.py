@@ -4,11 +4,10 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
 
 from ecommerce.config import root_path
-from ecommerce.models import init_post
-from ecommerce.routers import configure_routes
+from ecommerce.core.models import init_post
+from ecommerce.core.interfaces.routers import configure_routes
 
 app = FastAPI()
-
 
 app.mount("/static", StaticFiles(directory=root_path / "static"), name="static")
 

@@ -2,9 +2,9 @@ from fastapi import FastAPI
 from sqlalchemy import text
 
 from ecommerce.database.sql import Base, Session, engine
-from ecommerce.models import admin, products, user, restrict_paths
+from ecommerce.core.models import admin, products, user, restrict_paths
 
-from ecommerce.schema.users.user import UserSignup
+from ecommerce.core.interfaces.schema.users.user import UserSignup
  
 
 def init_post():

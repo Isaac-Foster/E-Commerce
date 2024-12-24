@@ -10,7 +10,7 @@ from fastapi import Query, Body, HTTPException
 from email_validator import validate_email, EmailNotValidError
 
 from ecommerce.database.sql import Session
-from ecommerce.models.user import UserModel
+from ecommerce.core.models.user import UserModel
 
 
 class WeakPasswordError(HTTPException):
