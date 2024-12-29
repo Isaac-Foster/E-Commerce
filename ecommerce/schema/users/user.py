@@ -9,8 +9,8 @@ from pydantic.networks import EmailStr
 from fastapi import Query, Body, HTTPException
 from email_validator import validate_email, EmailNotValidError
 
-from ecommerce.database.sql import Session
-from ecommerce.core.models.user import UserModel
+from ecommerce.infrastructure.database.sql import Session
+from ecommerce.infrastructure.models.user import UserModel
 
 
 class WeakPasswordError(HTTPException):
@@ -67,7 +67,6 @@ def is_strong_pass(
 def verify_registry(registry):
     if len(registry.password) > 100:
             raise HTTPException(status_code=400, detail="senha maior que 100 caracteres")
-        
     elif len(registry.email) > 256:
         raise HTTPException(status_code=400, detail="email maior que 256 caracteres")
 

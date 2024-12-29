@@ -2,7 +2,7 @@ import os
 
 from fastapi import APIRouter, File, UploadFile
 
-from ecommerce.database.storage import storage_manager
+from ecommerce.infrastructure.database.storage import storage_manager
 
 router = APIRouter(prefix='/admin', tags=["admin"])
 

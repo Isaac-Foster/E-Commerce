@@ -1,6 +1,6 @@
 from fastapi import APIRouter, Request, Response
 
-from ecommerce.core.interfaces.schema.users.user import UserSignup, UserSignin
+from ecommerce.schema.users.user import UserSignup, UserSignin
 
 
 router = APIRouter(prefix='/users', tags=["public"])

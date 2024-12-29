@@ -4,8 +4,8 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
 
 from ecommerce.config import root_path
-from ecommerce.core.models import init_post
-from ecommerce.core.interfaces.routers import configure_routes
+from ecommerce.infrastructure.models import init_post
+from ecommerce.interfaces.routers import configure_routes
 
 app = FastAPI()
 
