@@ -1,6 +1,5 @@
-
 from sqlalchemy import Column, ForeignKey, Integer, String, Text, JSON
-from ecommerce.database.sql import Base
+from ecommerce.infrastructure.database.sql import Base
 
 
 class AdminModel(Base):

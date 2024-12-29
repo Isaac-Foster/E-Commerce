@@ -1,7 +1,7 @@
 import ulid
 from sqlalchemy import Column, Integer, String, Text
 
-from ecommerce.database.sql import Base
+from ecommerce.infrastructure.database.sql import Base
 
 
 class UserModel(Base):

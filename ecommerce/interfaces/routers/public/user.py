@@ -2,9 +2,8 @@ from fastapi import APIRouter, Request, Response
 
 from ecommerce.schema.users.user import UserSignup, UserSignin
 
-from fastapi import APIRouter
-router = APIRouter(prefix='/users', tags=["public"])
 
+router = APIRouter(prefix='/users', tags=["public"])
 
 @router.post("/signup")
 async def register(data: UserSignup, request: Request):

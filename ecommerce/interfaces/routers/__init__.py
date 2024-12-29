@@ -7,8 +7,8 @@ from ecommerce.config import root_path
 
 
 """ def configure_routes(app: FastAPI):
-    from ecommerce.routers.users import user
-    from ecommerce.routers.admins import admin
+    from ecommerce.core.interfaces.routers.public import user
+    from ecommerce.core.interfaces.routers.admins import admin
     #from ecommerce.routers.public import public
     app.include_router(user.router) 
     app.include_router(admin.router) 
@@ -17,18 +17,24 @@ from ecommerce.config import root_path
 
 def configure_routes(app: FastAPI):
     path = Path(root_path)
-    routers_path = root_path / "routers"
-
+    routers_path = root_path / "interfaces/routers"
+    
     notfound_routers = []
 
     async def load_routers(path: Path):
         paths = []
+
+        if not "routers" in str(path):
+            return
 
         if not path.exists():
             #print(f"Diretório não encontrado: {path}")
             return paths
 
         for item in path.iterdir():
+            if "__init__.py" in str(item):
+                continue
+
             if item.is_file() and item.suffix == ".py":
                 paths.append(item)
                 continue
@@ -43,7 +49,7 @@ def configure_routes(app: FastAPI):
         module_name = path.relative_to(routers_path).with_suffix("").as_posix().replace("/", ".")
 
         try:
-            router_module = importlib.import_module(f"ecommerce.routers.{module_name}")
+            router_module = importlib.import_module(f"ecommerce.interfaces.routers.{module_name}")
             router_name = "router"
 
             if hasattr(router_module, router_name):
@@ -58,7 +64,6 @@ def configure_routes(app: FastAPI):
 
         except Exception as e:
             print(f"Erro ao importar {module_name}: {e}")
-
 
     async def initialize_routes():
         routes = await load_routers(routers_path)

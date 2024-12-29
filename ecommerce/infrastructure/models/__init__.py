@@ -1,8 +1,8 @@
 from fastapi import FastAPI
 from sqlalchemy import text
 
-from ecommerce.database.sql import Base, Session, engine
-from ecommerce.models import admin, products, user, restrict_paths
+from ecommerce.infrastructure.database.sql import Base, Session, engine
+from ecommerce.infrastructure.models import admin, products, user, restrict_paths
 
 from ecommerce.schema.users.user import UserSignup
  
