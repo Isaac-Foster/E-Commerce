@@ -2,7 +2,7 @@ from sqlalchemy import Column, ForeignKey, Integer, String, Text
 from sqlalchemy.orm import relationship
 from sqlalchemy.orm import backref
 
-from ecommerce.database.sql import Base
+from ecommerce.infrastructure.database.sql import Base
 
 
 class ProductModel(Base):

@@ -1,3 +1,7 @@
+Claro! Abaixo está um **README.md** estruturado para o seu projeto de **e-commerce** baseado na arquitetura e funcionalidades que discutimos. Esse modelo inclui informações sobre o propósito do projeto, a estrutura de pastas, como rodar o projeto, dependências e outras informações úteis para desenvolvedores e futuros colaboradores.
+
+---
+
 # E-commerce Boilerplate
 
 Este é um boilerplate para um sistema de **E-commerce** escalável e modular, desenvolvido com **FastAPI**. O projeto utiliza uma arquitetura limpa e modular (Clean Architecture/Hexagonal) para facilitar a manutenção e a evolução do código. Ele é projetado para ser facilmente extensível, com suporte a múltiplos provedores de **armazenamento de mídia** (como Oracle OCI e Amazon S3), **gerenciamento de sessões com Redis**, e integrações com diversos **sistemas de pagamento**.
@@ -14,65 +18,72 @@ Este é um boilerplate para um sistema de **E-commerce** escalável e modular, d
 
 ## Arquitetura
 
-Este projeto foi estruturado com uma organização clara e modular, visando facilitar a manutenção, escalabilidade e performance. Atualmente, a arquitetura segue um modelo inspirado em princípios de **Clean Architecture**, com foco na separação de responsabilidades entre as camadas de **domínio**, **aplicação**, **infraestrutura** e **interface**.
+Este projeto segue uma arquitetura limpa baseada em **Clean Architecture** e **Arquitetura Hexagonal**. Ele é composto pelas seguintes camadas:
 
-Futuramente, o projeto será reorganizado para seguir uma **Arquitetura Hexagonal**, permitindo uma maior flexibilidade e independência em relação às implementações externas (como bancos de dados, provedores de mídia, gateways de pagamento, etc.).
+- **Core**: Contém a lógica de negócios (serviços, entidades e repositórios).
+- **Infraestrutura**: Implementação de detalhes técnicos (acesso ao banco de dados, cache, armazenamento de mídia, etc.).
+- **Interfaces**: Exposição das APIs RESTful e interações com o mundo externo (controllers, rotas).
+- **Utilitários**: Funções auxiliares, middlewares e helpers.
 
 ## Estrutura do Projeto
 
 ```
-├── config                     # Configuração de ambientes (database, storage, etc)
-│   ├── gateway                # Configurações de gateway e microservices (se houver)
-│   └── media                  # Configurações de provedores de mídia (OCI, S3, etc)
+├── compose.yaml
+├── config
+│   ├── gateway
+│   └── media
 │       ├── amazon
 │       └── oracle
 ├── ecommerce
-│   ├── config.py              # Configuração central do aplicativo
-│   ├── database               # Configurações de bancos de dados (Redis, SQL)
-│   │   ├── redis.py           # Configuração de Redis (sessão de usuários, cache, etc)
-│   │   └── sql.py             # Configuração do banco de dados SQL (ex: PostgreSQL)
-│   ├── __main__.py            # Ponto de entrada da aplicação (FastAPI)
-│   ├── media                  # Serviços e lógica de upload de mídia (imagens, vídeos)
-│   │   ├── __init__.py        # Inicialização dos serviços de mídia
-│   │   └── README.md          # Instruções sobre os provedores de mídia (S3, OCI)
-│   ├── middleware             # Middlewares da aplicação (autenticação, sessão, etc)
-│   │   └── refresh_session.py # Middleware para renovar sessão
-│   ├── models                 # Definições de modelos de dados (User, Product, etc)
-│   │   ├── admin.py           # Modelos de dados para Admins
-│   │   ├── __init__.py        # Arquivo de inicialização
-│   │   ├── products.py        # Modelos de dados para Produtos
-│   │   └── user.py            # Modelos de dados para Usuários
-│   ├── routers                # Definição das rotas da API (Admin, Users, Public)
-│   │   ├── admins             # Rotas relacionadas ao painel admin
-│   │   │   └── admin.py       # Rotas para admins
-│   │   ├── __init__.py        # Arquivo de inicialização das rotas
-│   │   ├── public             # Rotas públicas (ex: visualização de produtos)
-│   │   └── users              # Rotas relacionadas aos usuários (autenticação, perfil, etc)
-│   │       └── user.py        # Rotas para usuários
-│   ├── schema                 # Definições dos schemas para validação de dados
-│   │   ├── admin              # Schemas para Admins
-│   │   ├── products           # Schemas para Produtos
-│   │   └── users              # Schemas para Usuários
-│   │       └── user.py        # Schemas para usuários
-│   ├── static                 # Arquivos estáticos (imagens, CSS)
-│   ├── templates              # Templates de HTML (se necessário)
-│   ├── utils                  # Funções auxiliares, helpers
-│   │   └── __init__.py        # Arquivo de inicialização
-│   └── views                  # Visualizações (páginas) para a aplicação
-│       ├── __init__.py        # Arquivo de inicialização das views
-│       ├── restrict           # Views restritas (Admin, Usuários)
-│       │   ├── admins         # Views restritas para Admins
-│       │   └── users          # Views restritas para Usuários
-│       └── users              # Views públicas para Usuários
-├── pyproject.toml             # Dependências do projeto (FastAPI, Redis, OCI, etc)
-└── uv.lock                    # Lock do ambiente para garantir reprodutibilidade
+│   ├── adapters
+│   ├── config.py
+│   ├── core
+│   │   ├── domain
+│   │   ├── ports
+│   │   └── use_cases
+│   ├── infrastructure
+│   │   ├── database
+│   │   └── models
+│   ├── interfaces
+│   │   ├── middleware
+│   │   │   └── refresh_session.py
+│   │   ├── routers
+│   │   │   ├── admins
+│   │   │   ├── __init__.py
+│   │   │   ├── public
+│   │   │   └── users
+│   │   └── services
+│   ├── __main__.py
+│   ├── schema
+│   │   ├── admin
+│   │   └── users
+│   ├── static
+│   ├── templates
+│   ├── utils
+│   │   └── __init__.py
+│   └── views
+│       ├── __init__.py
+│       ├── restrict
+│       │   ├── admins
+│       │   └── users
+│       └── users
+├── pyproject.toml
+├── README.md
+└── uv.lock
 ```
+
+### Camadas Principais:
+
+- **Core**: Contém a lógica de negócios e as regras principais da aplicação (como gerenciamento de produtos, carrinho de compras, etc.).
+- **Infraestrutura**: Onde as implementações específicas de banco de dados, sessões e armazenamento de mídia (OCI, S3) são feitas.
+- **Interfaces**: Onde são definidas as rotas da API (com FastAPI), validações de dados (schemas) e middlewares (como autenticação e segurança).
+- **Serviços de Pagamento**: Integração com múltiplos gateways de pagamento, como Gerencianet, PagSeguro, Stripe, MercadoPago, etc.
 
 ## Dependências
 
 ### Requisitos do Sistema
 
-- Python 3.11 ou superior
+- Python 3.9 ou superior
 - Docker (para rodar o projeto em containers)
 
 ### Dependências Python
@@ -85,7 +96,7 @@ No arquivo `pyproject.toml` você encontrará todas as dependências necessária
 - `SQLAlchemy` - ORM para interação com o banco de dados (ex: PostgreSQL)
 - `oci` - Biblioteca para interagir com o Oracle OCI
 - `boto3` - Cliente AWS SDK para Amazon S3
-- `httpx[http2]` - Para integração com APIs externas (como gateways de pagamento)
+- `requests` - Para integração com APIs externas (como gateways de pagamento)
 
 ### Instalação
 
@@ -128,6 +139,15 @@ Se você deseja contribuir para este projeto, siga as etapas abaixo:
     ```
 5. Abra um **Pull Request** explicando suas mudanças.
 
+## Testes
+
+Para garantir a qualidade do código, o projeto inclui testes automatizados. Para rodar os testes, utilize o framework de testes integrado (por exemplo, `pytest`).
+
+Execute os testes com o seguinte comando:
+
+```bash
+pytest ecommerce/tests
+```
 
 ## Roadmap
 
@@ -145,3 +165,5 @@ Se você deseja contribuir para este projeto, siga as etapas abaixo:
 Este projeto está licenciado sob a **MIT License** - veja o arquivo [LICENSE](LICENSE) para mais detalhes.
 
 ---
+
+Esse **README.md** oferece uma boa base para seu projeto de **e-commerce**, explicando a estrutura de pastas, como rodar o projeto, dependências e como contribuir. Ele também fornece um guia para a modularização do código e como você pode expandir o sistema no futuro.
