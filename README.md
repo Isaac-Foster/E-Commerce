@@ -28,37 +28,48 @@ Este projeto segue uma arquitetura limpa baseada em **Clean Architecture** e **A
 ## Estrutura do Projeto
 
 ```
-(ecommerce) ➜  store git:(dev) ✗ tree
-.
-├── compose.yaml               # Arquivo para docker-compose
-├── config                      # Configuração de ambientes (database, storage, etc)
-│   ├── gateway                # Configurações de gateway e microservices (se houver)
-│   └── media                  # Configurações de provedores de mídia (OCI, S3, etc)
+├── compose.yaml
+├── config
+│   ├── gateway
+│   └── media
 │       ├── amazon
 │       └── oracle
 ├── ecommerce
-│   ├── config.py              # Configuração central do aplicativo
-│   ├── core                    # Lógica de negócio da aplicação (serviços, entidades, etc)
-│   │   ├── entities            # Entidades de negócio (ex: Produto, Carrinho, Pedido)
-│   │   ├── services            # Serviços de negócios (ex: carrinho de compras, gerenciamento de pedidos)
-│   │   └── repositories        # Interfaces com repositórios (ex: banco de dados, redis)
-│   ├── infrastructure          # Implementação de detalhes técnicos (bancos de dados, armazenamento de mídia, etc)
-│   │   ├── redis.py            # Configuração de Redis (sessão de usuários, cache, etc)
-│   │   ├── sql.py              # Configuração do banco de dados SQL (ex: PostgreSQL)
-│   │   └── storage.py          # Implementação de serviços de armazenamento (OCI, S3, etc)
-│   ├── interfaces              # Interface com o mundo externo (APIs, controllers)
-│   │   ├── routers             # Rotas principais da API
-│   │   ├── schema              # Definições de schema para validação de dados
-│   │   └── middleware          # Middlewares para autenticação, segurança, etc
-│   ├── views                   # Renderização de templates, front-end (se aplicável)
-│   ├── static                  # Arquivos estáticos (ex: imagens, CSS)
-│   ├── templates               # Templates de HTML (se for um sistema que renderiza HTML)
-│   ├── utils                   # Funções auxiliares (validações, helpers, etc)
-│   ├── models                  # Definição de modelos de dados (ex: User, Product)
-│   ├── services                # Implementação de serviços (ex: Pagamentos, Carrinho)
-│   └── tests                   # Testes automatizados
-├── pyproject.toml              # Dependências do projeto (FastAPI, Redis, OCI, etc)
-└── uv.lock                     # Lock do ambiente para garantir reprodutibilidade
+│   ├── adapters
+│   ├── config.py
+│   ├── core
+│   │   ├── domain
+│   │   ├── ports
+│   │   └── use_cases
+│   ├── infrastructure
+│   │   ├── database
+│   │   └── models
+│   ├── interfaces
+│   │   ├── middleware
+│   │   │   └── refresh_session.py
+│   │   ├── routers
+│   │   │   ├── admins
+│   │   │   ├── __init__.py
+│   │   │   ├── public
+│   │   │   └── users
+│   │   └── services
+│   ├── __main__.py
+│   ├── schema
+│   │   ├── admin
+│   │   └── users
+│   ├── static
+│   ├── templates
+│   ├── utils
+│   │   └── __init__.py
+│   └── views
+│       ├── __init__.py
+│       ├── restrict
+│       │   ├── admins
+│       │   └── users
+│       └── users
+├── pyproject.toml
+├── README.md
+└── uv.lock
 ```
 
 ### Camadas Principais:
