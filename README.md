@@ -164,5 +164,3 @@ pytest ecommerce/tests
 Este projeto está licenciado sob a **MIT License** - veja o arquivo [LICENSE](LICENSE) para mais detalhes.
 
 ---
-
-Esse **README.md** oferece uma boa base para seu projeto de **e-commerce**, explicando a estrutura de pastas, como rodar o projeto, dependências e como contribuir. Ele também fornece um guia para a modularização do código e como você pode expandir o sistema no futuro.
